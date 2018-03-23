@@ -11,6 +11,9 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update -qy \
     && apt-get install -y nodejs
 
+# Install mongodb
+RUN apt-get install -y mongodb-server
+
 # Install app dependencies
 RUN mix local.hex --force
 RUN mix local.rebar --force
