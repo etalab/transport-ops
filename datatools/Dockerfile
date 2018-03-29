@@ -6,6 +6,7 @@ RUN apt-get update \
     && git clone -b fix_graphql_spec https://github.com/l-vincent-l/datatools-server.git /app \
     && cd /app && mvn -Dmaven.test.skip=true package \
     && mv /app/target/dt-*.jar /app/dt.jar \
+    && mkdir -p /data \
     && rm -r /app/target \
     && rm -r /root/.m2 \
     && apt-get --yes remove maven git \
