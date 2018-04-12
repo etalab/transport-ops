@@ -14,8 +14,8 @@ services:
     image: postgres
     restart: always
     environment:
-    - POSTGRES_PASSWORD=postgres_password
-    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_USER=user
     - POSTGRES_DB=catalogue
     volumes:
     - pgdata:/var/lib/postgresql/data

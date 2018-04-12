@@ -3,9 +3,9 @@ FROM openjdk:10-jre-slim
 RUN apt-get update \
     && apt-get --yes upgrade \
     && apt-get --yes install git maven \
-    && git clone -b fix_graphql_spec https://github.com/l-vincent-l/datatools-server.git /app \
+    && git clone -b transport_prod https://github.com/etalab/transport-datatools-server/ /app \
     && cd /app && mvn -Dmaven.test.skip=true package \
-    && mv /app/target/dt-*.jar /app/dt.jar \
+    && mv /app/target/datatool-server.jar /app/ \
     && mkdir -p /data \
     && rm -r /app/target \
     && rm -r /root/.m2 \
@@ -14,4 +14,4 @@ RUN apt-get update \
 
 COPY *.yml /app/configuration/
 
-ENTRYPOINT [ "java", "-jar", "/app/dt.jar", "/app/configuration/env.yml", "/app/configuration/server.yml"]
+ENTRYPOINT [ "java", "-jar", "/app/datatool-server.jar", "/app/configuration/env.yml", "/app/configuration/server.yml"]
