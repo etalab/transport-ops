@@ -1,15 +1,5 @@
 version: '3'
 services:
-  datatools:
-    image: betagouv/datatools:fix_graphql_spec
-    ports:
-    - "4000:4000"
-    volumes:
-    - ./data:/data
-    depends_on:
-    - postgres
-    - mongo
-
   postgres:
     image: postgres
     restart: always
@@ -19,12 +9,6 @@ services:
     - POSTGRES_DB=catalogue
     volumes:
     - pgdata:/var/lib/postgresql/data
-    
-  mongo:
-    image: mongo
-    volumes:
-    - mongodata:/data/db
 
 volumes:
   pgdata:
-  mongodata:
