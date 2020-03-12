@@ -1,4 +1,4 @@
-FROM elixir:1.8-alpine
+FROM elixir:1.10-alpine
 
 RUN apk add nodejs-npm curl yarn bash build-base wget libtool
 
