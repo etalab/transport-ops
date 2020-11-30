@@ -8,7 +8,7 @@ The production requires the following services:
 * transport-site: the web frontend
 
   * Hosted at https://transport.data.gouv.fr
-  * Elixir application hosted on Heroku
+  * Elixir application hosted on CleverCloud
   * The _master_ branch of https://github.com/etalab/transport-site is deployed by CircleCI
 
 * udata: references and/or stores the datasets and comments
