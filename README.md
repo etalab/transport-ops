@@ -32,5 +32,5 @@ cd transport-site
 docker build . -t test:latest
 docker run -it --rm test:latest /bin/bash -c 'node --version'
 docker run -it --rm test:latest /bin/bash -c 'elixir --version'
-docker run -it --rm test:latest /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'
+docker run -it --rm test:latest /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
 ```
