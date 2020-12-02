@@ -22,3 +22,15 @@ The _Transport Site_ project is tested with CircleCI in a Docker container that 
 When updating that Dockerfile, push a git tag in the format `a.b.c` and the image will be built by Dockerhub : https://hub.docker.com/r/betagouv/transport/
 
 Then update https://github.com/etalab/transport-site/blob/master/.circleci/config.yml to match the new version.
+
+## Useful tricks when upgrading
+
+Before creating a tag, the following commands can be used to verify the versions:
+
+```
+cd transport-site
+docker build . -t test:latest
+docker run -it --rm test:latest /bin/bash -c 'node --version'
+docker run -it --rm test:latest /bin/bash -c 'elixir --version'
+docker run -it --rm test:latest /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
+```
