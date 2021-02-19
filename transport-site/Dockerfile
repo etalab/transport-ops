@@ -7,6 +7,8 @@ RUN apk add nodejs-npm curl yarn bash build-base wget libtool git
 RUN mix local.hex --force
 RUN mix local.rebar --force
 
+# NOTE: development at https://git.savannah.gnu.org/gitweb/?p=libiconv.git
+# and publication at https://ftp.gnu.org/pub/gnu/libiconv
 RUN wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.16.tar.gz
 RUN tar -xf libiconv-1.16.tar.gz
 RUN cd libiconv-1.16 && ./configure --prefix= && make && make install
