@@ -1,7 +1,7 @@
 # see https://hub.docker.com/_/elixir
 FROM elixir:1.10.4-alpine
 
-RUN apk add nodejs-npm curl yarn bash build-base wget libtool
+RUN apk add nodejs-npm curl yarn bash build-base wget libtool git
 
 # Install app dependencies
 RUN mix local.hex --force
