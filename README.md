@@ -1,6 +1,18 @@
 # transport-ops
 Scripts and config files for provision and deploy transport and required services
 
+## Image naming convention
+
+In the past images were named "betagouv/transport:x.y.z".
+
+Now we name them after the Elixir, Erlang and Alpine versions actually used (like the base `hexpm` image it uses).
+
+* Base name: `hexpm/elixir:1.10.4-erlang-23.2.7.2-alpine-3.13.3`
+* Replace `hexpm/elixir:` by `betagouv/transport:elixir-`
+* Target name: `betagouv/transport:elixir-1.10.4-erlang-23.2.7.2-alpine-3.13.3`
+
+You can use `rake get_image_name` to build the expected target name out of the `Dockerfile` in automated fashion.
+
 ## Production configuration and deployment
 
 The production requires the following services:
@@ -35,21 +47,23 @@ As a work-around for [#17](https://github.com/etalab/transport-ops/issues/17):
 * Build the image locally with the correct tag, and **without cache** to make sure no left-over impact the build:
 
 ```
-docker build . --no-cache -t betagouv/transport:X.Y.Z
+IMAGE_VERSION=$(rake get_image_version)
+IMAGE_NAME=betagouv/transport:$IMAGE_VERSION
+docker build transport-site --no-cache -t $IMAGE_VERSION
 ```
 
 * Carefully verify the versions (this will be translated into a testing script later):
 
 ```
-docker run -it --rm betagouv/transport:X.Y.Z /bin/bash -c 'node --version'
-docker run -it --rm betagouv/transport:X.Y.Z /bin/bash -c 'elixir --version'
-docker run -it --rm betagouv/transport:X.Y.Z /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
+docker run -it --rm $IMAGE_NAME /bin/bash -c 'node --version'
+docker run -it --rm $IMAGE_NAME /bin/bash -c 'elixir --version'
+docker run -it --rm $IMAGE_NAME /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
 ```
 
 * Read the [docker push documentation](https://docs.docker.com/engine/reference/commandline/push/)
 * List the local images with `docker image ls`
-* Filter with `docker image ls | grep "betagouv/transport" | grep "X.Y.Z"`
-* Push with `docker image push betagouv/transport:X.Y.Z`
+* Filter with `docker image ls | grep "betagouv/transport" | grep $IMAGE_VERSION`
+* Push with `docker image push $IMAGE_NAME`
 * TODO: handle `latest` (but it is currently unused)
 
 ## Useful tricks when upgrading
