@@ -1,5 +1,5 @@
-# see https://hub.docker.com/_/elixir
-FROM elixir:1.11.3-alpine
+# see https://hub.docker.com/r/hexpm/elixir
+FROM hexpm/elixir:1.10.4-erlang-23.2.7.2-alpine-3.13.3
 
 RUN apk add nodejs-npm curl yarn bash build-base wget libtool git
 
