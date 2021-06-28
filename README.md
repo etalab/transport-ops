@@ -11,7 +11,7 @@ Now we name them after the Elixir, Erlang and Alpine versions actually used (lik
 * Replace `hexpm/elixir:` by `betagouv/transport:elixir-`
 * Target name: `betagouv/transport:elixir-1.10.4-erlang-23.2.7.2-alpine-3.13.3`
 
-You can use `rake get_image_name` to build the expected target name out of the `Dockerfile` in automated fashion.
+You can use `rake get_image_version` to build the expected target name out of the `Dockerfile` in automated fashion.
 
 ## Production configuration and deployment
 
@@ -49,7 +49,7 @@ As a work-around for [#17](https://github.com/etalab/transport-ops/issues/17):
 ```
 IMAGE_VERSION=$(rake get_image_version)
 IMAGE_NAME=betagouv/transport:$IMAGE_VERSION
-docker build transport-site --no-cache -t $IMAGE_VERSION
+docker build transport-site --no-cache -t $IMAGE_NAME
 ```
 
 * Carefully verify the versions (this will be translated into a testing script later):
