@@ -1,5 +1,5 @@
 # see https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.12.1-erlang-23.3.4.4-alpine-3.13.3
+FROM hexpm/elixir:1.12.1-erlang-24.0.3-alpine-3.13.3
 
 # TODO: iconv could probably be removed later 
 # https://github.com/etalab/transport-site/issues/1591
