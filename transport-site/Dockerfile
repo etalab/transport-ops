@@ -1,5 +1,16 @@
-# see https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.12.1-erlang-24.0.3-alpine-3.13.3
+# We leverage the base images published by hexpm.
+#
+# https://hub.docker.com/r/hexpm/elixir
+#
+# They provide the ability to decouple Elixir version
+# and OTP version, which is a nice feature for
+# incremental/decoupled upgrades.
+#
+# These base images package Elixir and OTP releases found at:
+# - https://github.com/elixir-lang/elixir/releases
+# - https://github.com/erlang/otp/releases
+#
+FROM hexpm/elixir:1.12.2-erlang-24.0.3-alpine-3.13.3
 
 # TODO: iconv could probably be removed later 
 # https://github.com/etalab/transport-site/issues/1591

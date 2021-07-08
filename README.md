@@ -64,6 +64,7 @@ docker run -it --rm $IMAGE_NAME /bin/bash -c "erl -noshell -eval 'erlang:display
 * List the local images with `docker image ls`
 * Filter with `docker image ls | grep "betagouv/transport" | grep $IMAGE_VERSION`
 * Push with `docker image push $IMAGE_NAME`
+* Verify tag presence at https://hub.docker.com/repository/docker/betagouv/transport
 * TODO: handle `latest` (but it is currently unused)
 
 ## Useful tricks when upgrading
