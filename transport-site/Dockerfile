@@ -10,7 +10,7 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
-FROM hexpm/elixir:1.12.2-erlang-24.0.3-focal-20210325
+FROM hexpm/elixir:1.12.2-erlang-24.0.3-ubuntu-focal-20210325
 
 # TODO: iconv could probably be removed later 
 # https://github.com/etalab/transport-site/issues/1591
