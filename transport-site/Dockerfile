@@ -12,13 +12,20 @@
 #
 FROM hexpm/elixir:1.12.2-erlang-24.0.3-ubuntu-focal-20210325
 
-# TODO: iconv could probably be removed later 
-# https://github.com/etalab/transport-site/issues/1591
-RUN apk add curl bash build-base wget libtool git gnu-libiconv
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Paris
+RUN apt-get install -y tzdata
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    libtool \
+    git
 
 # To be removed in favor of multistage build with deterministic version numbers,
 # e.g. https://dev.to/quatermain/comment/njf7
-RUN apk add nodejs-npm yarn
+RUN apt-get install -y nodejs npm
+RUN npm install -g yarn
 
 # Install app dependencies
 RUN mix local.hex --force
