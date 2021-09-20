@@ -22,9 +22,25 @@ RUN apt-get update && apt-get install -y \
     libtool \
     git
 
-# To be removed in favor of multistage build with deterministic version numbers,
-# e.g. https://dev.to/quatermain/comment/njf7
-RUN apt-get install -y nodejs npm
+ENV NVM_VERSION v0.29.0
+ENV NODE_VERSION 14.16.1
+ENV NVM_DIR $HOME/.nvm
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Install NVM
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
+
+# Install NODE
+RUN source $NVM_DIR/nvm.sh; \
+    nvm install $NODE_VERSION; \
+    nvm use --delete-prefix $NODE_VERSION;
+
+# add to path
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
 RUN npm install -g yarn
 
 # Install app dependencies
