@@ -10,7 +10,7 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
-FROM hexpm/elixir:1.12.2-erlang-24.0.3-ubuntu-focal-20210325
+FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
