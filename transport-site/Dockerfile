@@ -26,14 +26,11 @@ ENV NVM_VERSION v0.29.0
 ENV NODE_VERSION 14.16.1
 ENV NVM_DIR $HOME/.nvm
 
-# Replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
 
-# Install NODE
-RUN source $NVM_DIR/nvm.sh; \
+# Install NODE ("." is the sh equivalent to the bash "source" command)
+RUN . $NVM_DIR/nvm.sh; \
     nvm install $NODE_VERSION; \
     nvm use --delete-prefix $NODE_VERSION;
 
