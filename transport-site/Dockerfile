@@ -30,9 +30,7 @@ ENV NVM_DIR $HOME/.nvm
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
 
 # Install NODE ("." is the sh equivalent to the bash "source" command)
-RUN . $NVM_DIR/nvm.sh; \
-    nvm install $NODE_VERSION; \
-    nvm use --delete-prefix $NODE_VERSION;
+RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION
 
 # add to path
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
