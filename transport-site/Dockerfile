@@ -10,15 +10,33 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
-FROM hexpm/elixir:1.12.2-erlang-24.0.3-focal-20210325
+FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
-# TODO: iconv could probably be removed later 
-# https://github.com/etalab/transport-site/issues/1591
-RUN apk add curl bash build-base wget libtool git gnu-libiconv
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Paris
+RUN apt-get install -y tzdata
 
-# To be removed in favor of multistage build with deterministic version numbers,
-# e.g. https://dev.to/quatermain/comment/njf7
-RUN apk add nodejs-npm yarn
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    libtool \
+    git
+
+ENV NVM_VERSION v0.29.0
+ENV NODE_VERSION 14.16.1
+ENV NVM_DIR $HOME/.nvm
+
+# Install NVM
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
+
+# Install NODE ("." is the sh equivalent to the bash "source" command)
+RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION
+
+# add to path
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+RUN npm install -g yarn
 
 # Install app dependencies
 RUN mix local.hex --force
