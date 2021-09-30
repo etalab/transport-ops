@@ -10,6 +10,10 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
+
+# We are interested in the binaries compiled on that container:
+FROM ghcr.io/etalab/transport-tools:master as transport-tools
+
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -41,3 +45,8 @@ RUN npm install -g yarn
 # Install app dependencies
 RUN mix local.hex --force
 RUN mix local.rebar --force
+
+RUN mkdir /transport-tools
+
+COPY --from=transport-tools /usr/local/bin/gtfs-geojson ./transport-tools
+RUN chmod +x /transport-tools/gtfs-geojson
