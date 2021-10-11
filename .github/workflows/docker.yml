@@ -58,9 +58,9 @@ jobs:
       - name: Test
         run: |
           # TODO: assert 
-          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version'
-          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version'
-          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
+          docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version'
+          docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version'
+          docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
 
       # TODO: handle testing then publication using:
       # - https://github.com/etalab/transport-ops/issues/30
