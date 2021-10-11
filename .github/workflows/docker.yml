@@ -1,0 +1,67 @@
+# Inspiration:
+# - https://docs.github.com/en/actions/guides/publishing-docker-images#publishing-images-to-github-packages
+# - https://github.com/docker/build-push-action/blob/master/docs/advanced/test-before-push.md
+name: Test the docker image
+on:
+  # TODO: publish 1/ "master" for each "master" merged PR
+  # then 2/ for each "release". This will let us iterate
+  # without consequences, and control the moment when we want to tag & ship.
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  TEST_TAG: ${{ github.repository }}:test
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # See https://github.com/docker/build-push-action/blob/master/docs/advanced/test-before-push.md
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # v1.2.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@94ab11c41e45d028884a99163086648e898eed25 # v1.6.0
+
+      # https://github.com/docker/login-action
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and export to Docker
+        uses: docker/build-push-action@a66e35b9cbcf4ad0ea91ffcaf7bbad63ad9e0229 # v2.7.0
+        with:
+          context: .
+          # "load: true" apparently exports the image on the client (no external push),
+          # which is useful for testing it before any push.
+          # see https://github.com/docker/build-push-action
+          # --output=type=docker to enforce local work
+          # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#load
+          # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#docker
+          load: true 
+          push: false # the default, but added for clarity
+          tags: ${{ env.TEST_TAG }}
+
+      - name: Test
+        run: |
+          # TODO: assert 
+          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version'
+          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version'
+          docker run -it --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
+
+      # TODO: handle testing then publication using:
+      # - https://github.com/etalab/transport-ops/issues/30
+      # - https://github.com/etalab/transport-tools/blob/master/.github/workflows/docker.yml
