@@ -57,7 +57,7 @@ jobs:
 
       - name: Test
         run: |
-          # TODO: assert 
+          set -e
           docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep -q 'v14.16.0' && echo 'matched'
           docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep -q 'Elixir 1.12.2 (compiled with Erlang/OTP 24)' && echo 'matched'
           docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
