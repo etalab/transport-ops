@@ -60,13 +60,13 @@ jobs:
 
       # NOTE: the following tests rely on grep exit code (0 if match found)
       - name: Test that Node can start and has expected version
-        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep '${{ env.TEST_EXPECTED_NODE_OUTPUT }}'
+        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep ${{ env.TEST_EXPECTED_NODE_OUTPUT }}
       
       - name: Test that Elixir can start and has expected version
-        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep '$${ env.TEST_EXPECTED_ELIXIR_OUTPUT }}'
+        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep $${ env.TEST_EXPECTED_ELIXIR_OUTPUT }}
 
       - name: Test that Erlang can start and has (major) expected version
-        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'" | grep '$${ env.TEST_EXPECTED_ERLANG_OUTPUT }}'
+        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'" | grep $${ env.TEST_EXPECTED_ERLANG_OUTPUT }}
 
       # TODO: handle testing then publication using:
       # - https://github.com/etalab/transport-ops/issues/30
