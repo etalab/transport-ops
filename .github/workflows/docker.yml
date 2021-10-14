@@ -57,7 +57,7 @@ jobs:
 
       # NOTE: the following tests rely on grep exit code (0 if match found)
       - name: Test that Node can start and has expected version
-        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep 'v14.16.0'
+        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep 'v14.16.1'
       
       - name: Test that Elixir can start and has expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep 'Elixir 1.12.0 (compiled with Erlang/OTP 24)'
