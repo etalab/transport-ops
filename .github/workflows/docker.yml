@@ -60,7 +60,7 @@ jobs:
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep 'v14.16.1'
       
       - name: Test that Elixir can start and has expected version
-        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep 'Elixir 1.12.0 (compiled with Erlang/OTP 24)'
+        run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep 'Elixir 1.12.2 (compiled with Erlang/OTP 24)'
 
       - name: Test that Erlang can start and has (major) expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'" | grep 'Erlang/OTP 22'
