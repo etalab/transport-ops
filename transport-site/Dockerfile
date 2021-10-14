@@ -18,13 +18,13 @@ FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
-RUN apt-get install -y tzdata
 
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
     libtool \
-    git
+    git \
+    tzdata
 
 ENV NVM_VERSION v0.29.0
 ENV NODE_VERSION 14.16.1
