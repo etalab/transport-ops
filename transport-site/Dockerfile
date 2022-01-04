@@ -1,4 +1,7 @@
-# We leverage the base images published by hexpm.
+# We are interested in the binaries compiled on that container:
+FROM ghcr.io/etalab/transport-tools:master as transport-tools
+
+# We leverage the base images published by hexpm at:
 #
 # https://hub.docker.com/r/hexpm/elixir
 #
@@ -10,10 +13,10 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
-
-# We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:master as transport-tools
-
+#
+# So again, to upgrade this, check out : 
+#
+# https://hub.docker.com/r/hexpm/elixir
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
 ARG DEBIAN_FRONTEND=noninteractive
