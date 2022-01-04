@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
     tzdata
 
 ENV NVM_VERSION v0.39.1
-ENV NODE_VERSION 14.16.1
+ENV NODE_VERSION 16.13.1
 ENV NVM_DIR $HOME/.nvm
 
 # Install NVM
