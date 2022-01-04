@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
     git \
     tzdata
 
-ENV NVM_VERSION v0.29.0
+ENV NVM_VERSION v0.39.1
 ENV NODE_VERSION 14.16.1
 ENV NVM_DIR $HOME/.nvm
 
