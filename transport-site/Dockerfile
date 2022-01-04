@@ -33,6 +33,8 @@ ENV NVM_VERSION v0.39.1
 ENV NODE_VERSION 16.13.1
 ENV NVM_DIR $HOME/.nvm
 
+RUN mkdir $NVM_DIR
+
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
 
