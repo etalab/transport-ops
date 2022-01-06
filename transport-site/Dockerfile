@@ -5,6 +5,10 @@ FROM ghcr.io/etalab/transport-tools:master as transport-tools
 #
 # https://hub.docker.com/r/hexpm/elixir
 #
+# Which are built via:
+#
+# https://github.com/hexpm/bob#docker-images
+# 
 # They provide the ability to decouple Elixir version
 # and OTP version, which is a nice feature for
 # incremental/decoupled upgrades.
