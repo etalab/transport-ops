@@ -49,7 +49,7 @@ As a work-around for [#17](https://github.com/etalab/transport-ops/issues/17):
 ```
 IMAGE_VERSION=$(rake get_image_version)
 IMAGE_NAME=betagouv/transport:$IMAGE_VERSION
-docker build transport-site --no-cache -t $IMAGE_NAME
+docker build transport-site --no-cache -t $IMAGE_NAME --progress=plain
 ```
 
 * Carefully verify the versions (this will be translated into a testing script later):
@@ -76,7 +76,7 @@ Before creating a tag, the following commands can be used to verify the versions
 
 ```
 cd transport-site
-docker build . -t test:latest
+docker build . -t test:latest --progress=plain
 docker run -it --rm test:latest /bin/bash -c 'node --version'
 docker run -it --rm test:latest /bin/bash -c 'elixir --version'
 docker run -it --rm test:latest /bin/bash -c "erl -noshell -eval 'erlang:display(erlang:system_info(system_version))' -eval 'init:stop()'"
