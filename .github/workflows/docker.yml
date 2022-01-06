@@ -18,7 +18,7 @@ env:
   TEST_TAG: ${{ github.repository }}:test
   TEST_EXPECTED_NODE_OUTPUT: "v16.13.1"
   TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.13.1 (compiled with Erlang/OTP 24)"
-  TEST_EXPECTED_ERLANG_OUTPUT: "Erlang/OTP 24"
+  TEST_EXPECTED_ERLANG_OUTPUT: "24.2"
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
