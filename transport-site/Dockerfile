@@ -52,3 +52,6 @@ COPY --from=transport-tools /usr/local/bin/gtfs-geojson ./transport-tools
 RUN chmod +x /transport-tools/gtfs-geojson
 # quick check to verify binary dependencies are matched
 RUN /transport-tools/gtfs-geojson --help
+
+COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
+RUN /transport-tools/gtfs2netexfr --help
