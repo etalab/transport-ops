@@ -8,7 +8,7 @@ To create a new release as a Docker image, just create a GitHub release (with ta
 
 On release creation (see https://github.com/etalab/transport-ops/blob/master/.github/workflows/docker.yml), a build will start, and should normally result into the publication of a GitHub-hosted Docker image named just like the release.
 
-You can find the release here: https://github.com/etalab/transport-ops/pkgs/container/transport-ops
+You can find the resulting image here: https://github.com/etalab/transport-ops/pkgs/container/transport-ops
 
  One major caveat: the workflow must exist at the moment the tag is created (https://github.community/t/workflow-set-for-on-release-not-triggering-not-showing-up/16286/7):
 
