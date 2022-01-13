@@ -54,4 +54,8 @@ RUN chmod +x /transport-tools/gtfs-geojson
 RUN /transport-tools/gtfs-geojson --help
 
 COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
+# hackish - see https://github.com/etalab/transport-tools/blob/master/Dockerfile#L56
+RUN apt-get update
+RUN apt-get -y install libtiff5 libcurl3-nss
+COPY --from=transport-tools /usr/lib/libproj.* /usr/lib
 RUN /transport-tools/gtfs2netexfr --help
