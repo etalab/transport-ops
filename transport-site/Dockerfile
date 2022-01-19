@@ -12,7 +12,7 @@
 #
 
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.2-test-proj as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.2 as transport-tools
 
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
