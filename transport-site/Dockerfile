@@ -12,7 +12,7 @@
 #
 
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.1 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.2-test-proj as transport-tools
 
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
@@ -58,4 +58,6 @@ COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
 RUN apt-get update
 RUN apt-get -y install libtiff5 libcurl3-nss
 COPY --from=transport-tools /usr/lib/libproj.* /usr/lib
+RUN mkdir /usr/share/proj/
+COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
