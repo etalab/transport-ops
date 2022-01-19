@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     libtool \
     git \
-    tzdata
+    tzdata \
+    zip
 
 ENV NVM_VERSION v0.29.0
 ENV NODE_VERSION 14.16.1
