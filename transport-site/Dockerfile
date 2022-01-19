@@ -12,7 +12,7 @@
 #
 
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.2-test-proj as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.2 as transport-tools
 
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     libtool \
     git \
-    tzdata
+    tzdata \
+    zip
 
 ENV NVM_VERSION v0.29.0
 ENV NODE_VERSION 14.16.1
@@ -57,7 +58,7 @@ COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
 # hackish - see https://github.com/etalab/transport-tools/blob/master/Dockerfile#L56
 RUN apt-get update
 RUN apt-get -y install libtiff5 libcurl3-nss
-COPY --from=transport-tools /usr/lib/libproj.* /usr/lib
+COPY --from=transport-tools /usr/lib/libproj.* /usr/lib/
 RUN mkdir /usr/share/proj/
 COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
