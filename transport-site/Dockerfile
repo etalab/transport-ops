@@ -58,4 +58,5 @@ COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
 RUN apt-get update
 RUN apt-get -y install libtiff5 libcurl3-nss
 COPY --from=transport-tools /usr/lib/libproj.* /usr/lib
+COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
