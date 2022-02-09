@@ -21,7 +21,7 @@ FROM ghcr.io/etalab/transport-tools:v1.0.2 as transport-tools
 # So again, to upgrade this, check out : 
 #
 # https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.13.1-erlang-24.2-ubuntu-focal-20210325
+FROM hexpm/elixir:1.13.2-erlang-24.2.1-ubuntu-focal-20211006
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
