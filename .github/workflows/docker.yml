@@ -55,14 +55,14 @@ jobs:
           # --output=type=docker to enforce local work
           # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#load
           # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#docker
-          load: true 
+          load: true
           push: false # the default, but added for clarity
           tags: ${{ env.TEST_TAG }}
 
       # NOTE: the following tests rely on grep exit code (0 if match found)
       - name: Test that Node can start and has expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep '${{ env.TEST_EXPECTED_NODE_OUTPUT }}'
-      
+
       - name: Test that Elixir can start and has expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep '${{ env.TEST_EXPECTED_ELIXIR_OUTPUT }}'
 
