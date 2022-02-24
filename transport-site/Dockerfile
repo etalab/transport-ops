@@ -1,6 +1,13 @@
-# We leverage the base images published by hexpm.
+# We are interested in the binaries compiled on that container:
+FROM ghcr.io/etalab/transport-tools:v1.0.3 as transport-tools
+
+# We leverage the base images published by hexpm at:
 #
 # https://hub.docker.com/r/hexpm/elixir
+#
+# Which are built via:
+#
+# https://github.com/hexpm/bob#docker-images
 #
 # They provide the ability to decouple Elixir version
 # and OTP version, which is a nice feature for
@@ -10,10 +17,10 @@
 # - https://github.com/elixir-lang/elixir/releases
 # - https://github.com/erlang/otp/releases
 #
-
-# We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.2 as transport-tools
-
+#
+# So again, to upgrade this, check out :
+#
+# https://hub.docker.com/r/hexpm/elixir
 FROM hexpm/elixir:1.12.2-erlang-24.0.4-ubuntu-focal-20210325
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -25,11 +32,31 @@ RUN apt-get update && apt-get install -y \
     libtool \
     git \
     tzdata \
-    zip
+    zip \
+    default-jre \
+    maven
+
+# Helps bump the output of /etc/os-release from says "Ubuntu 24.04.2 LTS" to "... 24.04.3"
+#
+# The source image (hex) is itself based on a ubuntu image whose
+# packages are not necessarily up-to-date all the time. We want to
+# upgrade and ensure we are as up-to-date as possible.
+# Note that the kernel itself cannot be upgraded here apparently
+# (https://stackoverflow.com/a/66413248)
+#
+# See https://github.com/etalab/transport_deploy/issues/46 for more context
+RUN apt-get upgrade -y
+
+# debugging information
+RUN uname --all
+RUN cat /etc/os-release
+RUN cat /etc/lsb-release
 
 ENV NVM_VERSION v0.29.0
 ENV NODE_VERSION 14.16.1
 ENV NVM_DIR $HOME/.nvm
+
+RUN mkdir $NVM_DIR
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/install.sh | bash
@@ -62,3 +89,5 @@ COPY --from=transport-tools /usr/lib/libproj.* /usr/lib/
 RUN mkdir /usr/share/proj/
 COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
+COPY --from=transport-tools /usr/local/bin/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar ./transport-tools
+RUN java -jar /transport-tools/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar 2>&1 | grep "For batch mode you must provide a path and file name to GTFS data"
