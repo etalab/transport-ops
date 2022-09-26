@@ -1,6 +1,5 @@
 # We are interested in the binaries compiled on that container:
-# TODO: bump to v1.0.4 once published
-FROM ghcr.io/etalab/transport-tools:v1.0.3 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.4 as transport-tools
 
 # We leverage the base images published by hexpm at:
 #
