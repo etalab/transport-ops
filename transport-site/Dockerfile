@@ -107,5 +107,5 @@ COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
 COPY --from=transport-tools /usr/local/bin/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar ./transport-tools
 RUN java -jar /transport-tools/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar 2>&1 | grep "For batch mode you must provide a path and file name to GTFS data"
-COPY --from=transport-tools /usr/local/bin/gtfs-validator-v3.0.0_cli.jar ./transport-tools
-RUN java -jar /transport-tools/gtfs-validator-v3.0.0_cli.jar --help | grep "Location of the input GTFS ZIP"
+COPY --from=transport-tools /usr/local/bin/gtfs-validator-3.1.1-cli.jar ./transport-tools
+RUN java -jar /transport-tools/gtfs-validator-3.1.1-cli.jar --help | grep "Location of the input GTFS ZIP"
