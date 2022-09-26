@@ -1,5 +1,5 @@
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.3 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.4 as transport-tools
 
 # We leverage the base images published by hexpm at:
 #
@@ -21,7 +21,7 @@ FROM ghcr.io/etalab/transport-tools:v1.0.3 as transport-tools
 # So again, to upgrade this, check out : 
 #
 # https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.13.4-erlang-24.3.4-ubuntu-focal-20211006
+FROM hexpm/elixir:1.14.0-erlang-24.3.4.5-ubuntu-focal-20211006
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
@@ -69,7 +69,7 @@ RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
 ENV NVM_VERSION v0.39.1
-ENV NODE_VERSION 16.15.0
+ENV NODE_VERSION 16.17.1
 ENV NVM_DIR $HOME/.nvm
 
 RUN mkdir $NVM_DIR
@@ -107,5 +107,5 @@ COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
 RUN /transport-tools/gtfs2netexfr --help
 COPY --from=transport-tools /usr/local/bin/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar ./transport-tools
 RUN java -jar /transport-tools/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar 2>&1 | grep "For batch mode you must provide a path and file name to GTFS data"
-COPY --from=transport-tools /usr/local/bin/gtfs-validator-v3.0.0_cli.jar ./transport-tools
-RUN java -jar /transport-tools/gtfs-validator-v3.0.0_cli.jar --help | grep "Location of the input GTFS ZIP"
+COPY --from=transport-tools /usr/local/bin/gtfs-validator-3.1.1-cli.jar ./transport-tools
+RUN java -jar /transport-tools/gtfs-validator-3.1.1-cli.jar --help | grep "Location of the input GTFS ZIP"
