@@ -6,6 +6,8 @@ Scripts and config files for provision and deploy transport and required service
 
 To create a new release as a Docker image, just create a GitHub release (with tag name == release name), with a changelog.
 
+Currently, the correct release/tag name can be built from a local command-line, using `rake get_image_version`.
+
 On release creation (see https://github.com/etalab/transport-ops/blob/master/.github/workflows/docker.yml), a build will start, and should normally result into the publication of a GitHub-hosted Docker image named just like the release.
 
 You can find the resulting image here: https://github.com/etalab/transport-ops/pkgs/container/transport-ops
