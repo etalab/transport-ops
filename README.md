@@ -16,6 +16,13 @@ You can find the resulting image here: https://github.com/etalab/transport-ops/p
 
  > The trigger only executes when a release is created using a tag that contains the workflow.
 
+# How to rebuild the package for an existing release (security patches etc)
+
+See https://github.com/etalab/transport-ops/issues/45:
+
+* For future releases (> `elixir-1.14.1-erlang-24.3.4.6-ubuntu-focal-20211006-transport-tools-1.0.5`), it will normally become possible to go to "actions / select job on left / re-run on tag" to rebuild a given image and run tests automatically
+* It is also possible to move an existing release to "pre-release" (then cancel the job automatically created) then back again to "release", this will re-trigger the release.
+
 # LEGACY DOCUMENTATION below - kept until the moment we clean it
 
 ## Image naming convention
