@@ -18,8 +18,8 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   TEST_TAG: ${{ github.repository }}:test
   TEST_EXPECTED_NODE_OUTPUT: "v16.17.1"
-  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.14.0 (compiled with Erlang/OTP 24)"
-  TEST_EXPECTED_ERLANG_OUTPUT: "24.3.4.5"
+  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.14.1 (compiled with Erlang/OTP 24)"
+  TEST_EXPECTED_ERLANG_OUTPUT: "24.3.4.6"
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
