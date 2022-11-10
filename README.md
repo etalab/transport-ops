@@ -20,8 +20,9 @@ You can find the resulting image here: https://github.com/etalab/transport-ops/p
 
 See https://github.com/etalab/transport-ops/issues/45:
 
-* For future releases (> `elixir-1.14.1-erlang-24.3.4.6-ubuntu-focal-20211006-transport-tools-1.0.5`), it will normally become possible to go to "actions / select job on left / re-run on tag" to rebuild a given image and run tests automatically
+* You can now re-run a workflow thanks to the `workflow_dispatch` event trigger: go to "actions" / "test and publish the docker image", "run workflow" on the right, pick the right tag.
 * It is also possible to move an existing release to "pre-release" (then cancel the job automatically created) then back again to "release", this will re-trigger the release.
+* On last resort, you can also delete the remote tag and the release, and recreate both.
 
 # LEGACY DOCUMENTATION below - kept until the moment we clean it
 
