@@ -69,7 +69,7 @@ RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
 ENV NVM_VERSION v0.39.3
-ENV NODE_VERSION 18.4.1
+ENV NODE_VERSION 18.14.1
 ENV NVM_DIR $HOME/.nvm
 
 RUN mkdir $NVM_DIR
