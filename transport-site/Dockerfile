@@ -1,5 +1,5 @@
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.6 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.5 as transport-tools
 
 # We leverage the base images published by hexpm at:
 #
