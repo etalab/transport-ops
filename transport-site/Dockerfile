@@ -1,5 +1,5 @@
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.5 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.6 as transport-tools
 
 # We leverage the base images published by hexpm at:
 #
@@ -21,7 +21,7 @@ FROM ghcr.io/etalab/transport-tools:v1.0.5 as transport-tools
 # So again, to upgrade this, check out : 
 #
 # https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.14.1-erlang-24.3.4.6-ubuntu-focal-20211006
+FROM hexpm/elixir:1.14.3-erlang-24.3.4.8-ubuntu-focal-20221130
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
@@ -68,8 +68,8 @@ RUN uname --all
 RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
-ENV NVM_VERSION v0.39.1
-ENV NODE_VERSION 16.17.1
+ENV NVM_VERSION v0.39.3
+ENV NODE_VERSION 18.4.1
 ENV NVM_DIR $HOME/.nvm
 
 RUN mkdir $NVM_DIR
