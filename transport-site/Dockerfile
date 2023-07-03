@@ -36,6 +36,10 @@ RUN apt-get update && apt-get install -y \
     default-jre \
     maven
 
+# AppSignal dependencies https://docs.appsignal.com/support/operating-systems.html#debian-ubuntu
+# without them the appsignal Elixir package installation will log an error but not stop the build!
+RUN apt-get update && apt-get install -y build-essential ca-certificates
+
 # Helps bump the output of /etc/os-release from says "Ubuntu 24.04.2 LTS" to "... 24.04.3"
 #
 # The source image (hex) is itself based on a ubuntu image whose
