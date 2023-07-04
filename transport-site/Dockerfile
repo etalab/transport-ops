@@ -21,7 +21,7 @@ FROM ghcr.io/etalab/transport-tools:v1.0.7 as transport-tools
 # So again, to upgrade this, check out : 
 #
 # https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.14.3-erlang-24.3.4.8-ubuntu-focal-20221130
+FROM hexpm/elixir:1.14.5-erlang-24.3.4.13-ubuntu-focal-20230126
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
@@ -35,6 +35,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     default-jre \
     maven
+
+# AppSignal dependencies https://docs.appsignal.com/support/operating-systems.html#debian-ubuntu
+# without them the appsignal Elixir package installation will log an error but not stop the build!
+RUN apt-get update && apt-get install -y build-essential ca-certificates
 
 # Helps bump the output of /etc/os-release from says "Ubuntu 24.04.2 LTS" to "... 24.04.3"
 #
@@ -69,7 +73,7 @@ RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
 ENV NVM_VERSION v0.39.3
-ENV NODE_VERSION 18.14.1
+ENV NODE_VERSION 18.16.1
 ENV NVM_DIR $HOME/.nvm
 
 RUN mkdir $NVM_DIR
