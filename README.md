@@ -4,13 +4,12 @@ Scripts and config files for provision and deploy transport and required service
 
 # New release process (GitHub actions + GitHub Container Registry)
 
-To create a new release as a Docker image, just create a GitHub release (with tag name == release name), with a changelog.
-
-Currently, the correct release/tag name can be built from a local command-line, using `rake get_image_version`.
-
-On release creation (see https://github.com/etalab/transport-ops/blob/master/.github/workflows/docker.yml), a build will start, and should normally result into the publication of a GitHub-hosted Docker image named just like the release.
-
-You can find the resulting image here: https://github.com/etalab/transport-ops/pkgs/container/transport-ops
+To create a new release as a Docker image:
+1. Update the code (Dockerfile and Github workflow tests), create a pull request, get your changes merged into master
+2. Create a GitHub release (with tag name == release name), with a changelog on the page https://github.com/etalab/transport-ops/releases
+   1. Use locally `rake get_image_version` to generate the correct tag / release name
+   2. Then create a release using this generated name as both the tag and the release title. You can auto-generate the release notes.
+3. On release creation (see https://github.com/etalab/transport-ops/blob/master/.github/workflows/docker.yml), a build will start, and should normally result into the publication of a GitHub-hosted Docker image named just like the release. You can find the resulting image here: https://github.com/etalab/transport-ops/pkgs/container/transport-ops This image URL can then be used by transport-site.
 
  One major caveat: the workflow must exist at the moment the tag is created (https://github.community/t/workflow-set-for-on-release-not-triggering-not-showing-up/16286/7):
 
