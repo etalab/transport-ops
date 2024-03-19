@@ -20,8 +20,9 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   TEST_TAG: ${{ github.repository }}:test
   TEST_EXPECTED_NODE_OUTPUT: "v20.11.1"
-  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.16.2 (compiled with Erlang/OTP 25)"
-  TEST_EXPECTED_ERLANG_OUTPUT: "25.3.2.10"
+  # In transport-site: elixir -v
+  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.16.2 (compiled with Erlang/OTP 26)"
+  TEST_EXPECTED_ERLANG_OUTPUT: "26.2.3"
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
