@@ -5,7 +5,7 @@ Scripts and config files for provision and deploy transport and required service
 # New release process (GitHub actions + GitHub Container Registry)
 
 To create a new release as a Docker image:
-1. Update the code (Dockerfile and Github workflow tests), create a pull request, get your changes merged into master
+1. Update the code (Dockerfile and Github workflow tests), create a pull request, get your changes merged into master. No need to test your code locally: you can rely on Github workflow.
 2. Create a GitHub release (with tag name == release name), with a changelog on the page https://github.com/etalab/transport-ops/releases
    1. Use locally `rake get_image_version` to generate the correct tag / release name
    2. Then create a release using this generated name as both the tag and the release title. You can auto-generate the release notes.
