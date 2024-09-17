@@ -1,5 +1,5 @@
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.7 as transport-tools
+FROM ghcr.io/etalab/transport-tools:v1.0.7 AS transport-tools
 
 # We leverage the base images published by hexpm at:
 #
@@ -21,7 +21,7 @@ FROM ghcr.io/etalab/transport-tools:v1.0.7 as transport-tools
 # So again, to upgrade this, check out : 
 #
 # https://hub.docker.com/r/hexpm/elixir
-FROM hexpm/elixir:1.16.2-erlang-25.3.2.10-ubuntu-focal-20240216
+FROM hexpm/elixir:1.17.2-erlang-27.0.1-ubuntu-focal-20240530
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Paris
@@ -72,9 +72,9 @@ RUN uname --all
 RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
-ENV NVM_VERSION v0.39.7
-ENV NODE_VERSION 20.11.1
-ENV NVM_DIR $HOME/.nvm
+ENV NVM_VERSION=v0.40.1
+ENV NODE_VERSION=20.17.0
+ENV NVM_DIR=$HOME/.nvm
 
 RUN mkdir $NVM_DIR
 
@@ -85,8 +85,8 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/${NVM_VERSION}/ins
 RUN . $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION
 
 # add to path
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+ENV NODE_PATH=$NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN npm install -g yarn
 
