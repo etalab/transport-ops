@@ -4,7 +4,7 @@ on:
     branches:
       - elixir-1.18
 env:
-  TEST_TAG: ${{ github.repository }}:test:debug
+  TEST_TAG: ${{ github.repository }}:test-debug
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
