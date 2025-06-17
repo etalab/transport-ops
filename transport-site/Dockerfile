@@ -1,5 +1,5 @@
 # We are interested in the binaries compiled on that container:
-FROM ghcr.io/etalab/transport-tools:v1.0.7 AS transport-tools
+FROM ghcr.io/etalab/transport-tools:pr-24 AS transport-tools
 
 # We leverage the base images published by hexpm at:
 #
@@ -96,20 +96,16 @@ RUN mix local.rebar --force
 
 RUN mkdir /transport-tools
 
+# GTFS to GeoJSON 
 COPY --from=transport-tools /usr/local/bin/gtfs-geojson ./transport-tools
 RUN chmod +x /transport-tools/gtfs-geojson
 # quick check to verify binary dependencies are matched
 RUN /transport-tools/gtfs-geojson --help
 
-COPY --from=transport-tools /usr/local/bin/gtfs2netexfr ./transport-tools
-# hackish - see https://github.com/etalab/transport-tools/blob/master/Dockerfile#L56
-RUN apt-get update
-RUN apt-get -y install libtiff5 libcurl3-nss
-COPY --from=transport-tools /usr/lib/libproj.* /usr/lib/
-RUN mkdir /usr/share/proj/
-COPY --from=transport-tools /usr/share/proj/ /usr/share/proj/
-RUN /transport-tools/gtfs2netexfr --help
+# GTFS Realtime Validator
 COPY --from=transport-tools /usr/local/bin/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar ./transport-tools
 RUN java -jar /transport-tools/gtfs-realtime-validator-lib-1.0.0-SNAPSHOT.jar 2>&1 | grep "For batch mode you must provide a path and file name to GTFS data"
-COPY --from=transport-tools /usr/local/bin/gtfs-validator-3.1.1-cli.jar ./transport-tools
-RUN java -jar /transport-tools/gtfs-validator-3.1.1-cli.jar --help | grep "Location of the input GTFS ZIP"
+
+# GTFS Canonical Validator
+COPY --from=transport-tools /usr/local/bin/gtfs-validator-7.1.0-cli.jar ./transport-tools
+RUN java -jar /transport-tools/gtfs-validator-7.1.0-cli.jar --help | grep "Location of the input GTFS ZIP"
