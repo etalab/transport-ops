@@ -72,8 +72,8 @@ RUN uname --all
 RUN cat /etc/os-release
 RUN cat /etc/lsb-release
 
-ENV NVM_VERSION=v0.40.1
-ENV NODE_VERSION=20.17.0
+ENV NVM_VERSION=v0.40.3
+ENV NODE_VERSION=22.16.0
 ENV NVM_DIR=$HOME/.nvm
 
 RUN mkdir $NVM_DIR
