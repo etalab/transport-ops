@@ -74,7 +74,7 @@ RUN cat /etc/lsb-release
 
 ENV NVM_VERSION=v0.40.3
 ENV NODE_VERSION=22.16.0
-ENV NVM_DIR=$HOME/.nvm
+ENV NVM_DIR=/root/.nvm
 
 RUN mkdir $NVM_DIR
 
