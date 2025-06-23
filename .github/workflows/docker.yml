@@ -19,9 +19,9 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   TEST_TAG: ${{ github.repository }}:test
-  TEST_EXPECTED_NODE_OUTPUT: "v20.17.0"
-  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.17.3 (compiled with Erlang/OTP 27)"
-  TEST_EXPECTED_ERLANG_OUTPUT: "27.1"
+  TEST_EXPECTED_NODE_OUTPUT: "v22.16.0"
+  TEST_EXPECTED_ELIXIR_OUTPUT: "Elixir 1.18.4 (compiled with Erlang/OTP 27)"
+  TEST_EXPECTED_ERLANG_OUTPUT: "27.3.4.1"
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -62,16 +62,16 @@ jobs:
           tags: ${{ env.TEST_TAG }}
 
       # NOTE: the following tests rely on grep exit code (0 if match found)
-      - name: Test that Node can start and has expected version
+      - name: Test that Node can start and has the expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'node --version' | grep '${{ env.TEST_EXPECTED_NODE_OUTPUT }}'
 
-      - name: Test that Elixir can start and has expected version
+      - name: Test that Elixir can start and has the expected version
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c 'elixir --version' | grep '${{ env.TEST_EXPECTED_ELIXIR_OUTPUT }}'
 
-      - name: Test that Erlang can start and has expected version (major + minor + optional revision number)
+      - name: Test that Erlang can start and has the expected version (major + minor + optional revision number)
         run: docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), \"releases\", erlang:system_info(otp_release), \"OTP_VERSION\"])), io:fwrite(Version), halt().' -noshell" | grep '${{ env.TEST_EXPECTED_ERLANG_OUTPUT }}'
 
-      # If we reach this point, we consider the tested imaged is OK, so we can extract the metadat & publish
+      # If we reach this point, we consider the tested image is OK, so we can extract the metadata & publish
       # https://github.com/docker/metadata-action
       - name: Extract metadata (tags, labels) for Docker
         id: meta
